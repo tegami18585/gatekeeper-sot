@@ -1,0 +1,45 @@
+version: 1
+scope: global
+
+precedence:
+  order: ["global", "project"]
+
+gatekeeper:
+  source_of_truth: "git"
+  direct_repo_writes: "forbidden"
+  apply_requires_approval: true
+  allowed_apply_status: ["approved"]
+  patch_format: "unified_diff"
+
+chat_policy:
+  project_scoped_sessions_only: true
+  close_requires_handover_proposal: false
+
+roadmap_policy:
+  enforce_state_machine: true
+  allowed_states: ["draft","active","blocked","done","archived","resumed"]
+  transitions:
+    draft:   ["active"]
+    active:  ["blocked","done"]
+    blocked: ["active"]
+    done:    ["archived"]
+    archived:["resumed"]
+    resumed: ["active"]
+
+security:
+  openai_api_key_location: "server_only"
+  repo_auth: "bot_token_only"
+  audit_required_actions:
+    - create_proposal
+    - submit_review
+    - approve
+    - reject
+    - apply
+    - archive_project
+    - resume_project
+
+restart_policy:
+  require_on_resume:
+    - handover_change
+  optional_on_resume:
+    - tech_change
