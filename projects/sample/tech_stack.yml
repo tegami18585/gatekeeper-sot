@@ -1,0 +1,22 @@
+version: 1
+project_key: "sample"
+
+runtime:
+  language: "typescript"
+  framework: "nextjs"
+  server: "node"
+  database: "postgresql"
+
+infra:
+  git_host: "github"
+  ci: "github_actions"
+
+llm:
+  provider: "openai"
+  api: "responses_api"
+  models:
+    chat: "gpt-5.1-chat-latest"
+
+constraints:
+  secrets_in_client: false
+  repo_write_via_bot_only: true
