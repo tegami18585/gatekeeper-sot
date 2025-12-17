@@ -1,0 +1,27 @@
+version: 1
+scope: project
+project_key: "sample"
+
+overrides:
+  chat_policy:
+    close_requires_handover_proposal: true
+
+  restart_policy:
+    require_on_resume:
+      - handover_change
+      - tech_change
+
+constraints:
+  allowed_target_paths:
+    - "/projects/sample/roadmap.yml"
+    - "/projects/sample/tech_stack.yml"
+    - "/projects/sample/handover.md"
+    - "/projects/sample/decision_log.md"
+    - "/projects/sample/project_rules.yml"
+
+  proposal_type_to_paths:
+    roadmap_change: ["/projects/sample/roadmap.yml"]
+    tech_change: ["/projects/sample/tech_stack.yml"]
+    handover_change: ["/projects/sample/handover.md"]
+    decision_log_change: ["/projects/sample/decision_log.md"]
+    rules_change: ["/projects/sample/project_rules.yml"]
